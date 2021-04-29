@@ -90,9 +90,13 @@ const HomeScreen = () => {
       <main className={styles.main}>
         <h1 className={styles.title}>Welcome to VB-CAPTCHA</h1>
         {speaking ? (
-          <button onClick={stopSpeak}>STOP</button>
+          <button className={styles.button} onClick={stopSpeak}>
+            <Image src="/pause.svg" alt="record" width={64} height={64} />
+          </button>
         ) : (
-          <button onClick={startSpeak}>START</button>
+          <button className={styles.button} onClick={startSpeak}>
+            <Image src="/record.svg" alt="record" width={64} height={64} />
+          </button>
         )}
       </main>
 

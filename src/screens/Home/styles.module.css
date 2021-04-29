@@ -119,3 +119,13 @@
     flex-direction: column;
   }
 }
+
+.button {
+  border: 1px solid #5e5e5e;
+  border-radius: 24px;
+  background-color: white;
+}
+
+.button:hover {
+  background-color: #5e5e5e;
+}
