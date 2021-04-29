@@ -41,18 +41,18 @@ const SignInScreen = () => {
       })
     );
 
-    let quiz = options[_.random(options.length, false)];
+    let quizOne = options[_.random(options.length - 1, false)];
     options = _.compact(
       _.map(options, (option) => {
-        if (option === quiz) {
+        if (option === quizOne) {
           return null;
         }
         return option;
       })
     );
-    setQuestionOne(quiz);
-    quiz = options[_.random(options.length, false)];
-    setQuestionTwo(quiz);
+    setQuestionOne(quizOne);
+    let quizTwo = options[_.random(options.length - 1, false)];
+    setQuestionTwo(quizTwo);
   };
 
   const loadModel = async () => {
@@ -102,6 +102,13 @@ const SignInScreen = () => {
     }
     model.stopListening();
     setSpeaking(false);
+  };
+
+  const refresh = (e) => {
+    if (e) {
+      e.preventDefault();
+    }
+    loadQuestion();
   };
 
   const verify = () => {
@@ -170,25 +177,39 @@ const SignInScreen = () => {
                 <div className="box is-flex is-justify-content-center mx-6 is-size-2">
                   {questionOne} {questionTwo}
                 </div>
-                {speaking ? (
-                  <button className={styles.button} onClick={stopSpeak}>
-                    <Image
-                      src="/pause.svg"
-                      alt="record"
-                      width={64}
-                      height={64}
-                    />
-                  </button>
-                ) : (
-                  <button className={styles.button} onClick={startSpeak}>
-                    <Image
-                      src="/record.svg"
-                      alt="record"
-                      width={64}
-                      height={64}
-                    />
-                  </button>
-                )}
+                <div className="columns">
+                  <div className="column is-half is-flex is-justify-content-center">
+                    <button className={styles.button} onClick={refresh}>
+                      <Image
+                        src="/refresh.svg"
+                        alt="refresh"
+                        width={64}
+                        height={64}
+                      />
+                    </button>
+                  </div>
+                  <div className="column is-half is-flex is-justify-content-center">
+                    {speaking ? (
+                      <button className={styles.button} onClick={stopSpeak}>
+                        <Image
+                          src="/pause.svg"
+                          alt="pause"
+                          width={64}
+                          height={64}
+                        />
+                      </button>
+                    ) : (
+                      <button className={styles.button} onClick={startSpeak}>
+                        <Image
+                          src="/record.svg"
+                          alt="record"
+                          width={64}
+                          height={64}
+                        />
+                      </button>
+                    )}
+                  </div>
+                </div>
               </>
             )}
           </div>
