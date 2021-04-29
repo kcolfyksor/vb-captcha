@@ -4,6 +4,7 @@ import styles from "./styles.module.css";
 import _ from "lodash";
 
 const HomeScreen = () => {
+  // ============================================  RENDER
   return (
     <div className={styles.container}>
       <Head>
@@ -24,4 +25,5 @@ const HomeScreen = () => {
   );
 };
 
+// ============================================  EXPORT
 export default HomeScreen;
