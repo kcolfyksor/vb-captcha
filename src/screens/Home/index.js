@@ -77,7 +77,7 @@ const HomeScreen = () => {
 
   // console.log("model: ", model);
   // console.log("labels: ", labels);
-  console.log("action: ", action);
+  // console.log("action: ", action);
   // console.log("test argMax: ", argMax([5.2, 1.4, 9.6, 1.8, 3.2, 2.4]));
   return (
     <div className={styles.container}>
@@ -89,13 +89,12 @@ const HomeScreen = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>Welcome to VB-CAPTCHA</h1>
+        {speaking ? (
+          <button onClick={stopSpeak}>STOP</button>
+        ) : (
+          <button onClick={startSpeak}>START</button>
+        )}
       </main>
-
-      {speaking ? (
-        <button onClick={stopSpeak}>STOP</button>
-      ) : (
-        <button onClick={startSpeak}>START</button>
-      )}
 
       <footer className={styles.footer}>
         <a
