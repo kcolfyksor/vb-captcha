@@ -1,8 +1,10 @@
 import Head from "next/head";
-import Image from "next/image";
+import Link from "next/link";
 import styles from "./styles.module.css";
+import _ from "lodash";
 
 const HomeScreen = () => {
+  // ============================================  RENDER
   return (
     <div className={styles.container}>
       <Head>
@@ -12,22 +14,49 @@ const HomeScreen = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>Welcome to VB-CAPTCHA</h1>
+        <div className="container is-fluid">
+          <div className="tabs is-centered is-large is-fullwidth mb-6">
+            <ul>
+              <li className="is-active">
+                <Link href="/">
+                  <a>Home</a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/signin">
+                  <a>Sign In</a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/train">
+                  <a>Train</a>
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <h1 className={styles.title}>Welcome to VB-CAPTCHA</h1>
+          <div className="columns my-6">
+            <div className="column is-half is-flex is-justify-content-center">
+              <Link href="/signin">
+                <button className="button is-link is-light is-large">
+                  Sign In
+                </button>
+                {/* <a>Sign In</a> */}
+              </Link>
+            </div>
+            <div className="column is-half is-flex is-justify-content-center">
+              <Link href="/train">
+                <button className="button is-link is-light is-large">
+                  Train
+                </button>
+              </Link>
+            </div>
+          </div>
+        </div>
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer">
-          Powered by{" "}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
     </div>
   );
 };
 
+// ============================================  EXPORT
 export default HomeScreen;
