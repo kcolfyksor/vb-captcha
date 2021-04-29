@@ -1,84 +1,9 @@
 import Head from "next/head";
-import Image from "next/image";
+import Link from "next/link";
 import styles from "./styles.module.css";
-import * as tf from "@tensorflow/tfjs";
-import * as speech from "@tensorflow-models/speech-commands";
-import { useEffect, useState } from "react";
 import _ from "lodash";
 
 const HomeScreen = () => {
-  const [model, setModel] = useState(null);
-  const [action, setAction] = useState(null);
-  const [labels, setLabels] = useState(null);
-  const [speaking, setSpeaking] = useState(false);
-
-  const argMax = (array) => {
-    return _.reduce(
-      _.map(array, (x, i) => {
-        return [x, i];
-      }),
-      (r, a) => {
-        return a[0] > r[0] ? a : r;
-      }
-    )[1];
-  };
-
-  const loadModel = async () => {
-    // start loading model
-    const recognizer = await speech.create("BROWSER_FFT");
-    // check if model is loaded
-    await recognizer.ensureModelLoaded();
-    // store model instance to state
-    setModel(recognizer);
-    // store command word list to state
-    setLabels(recognizer.wordLabels());
-  };
-
-  const startSpeak = async () => {
-    console.log("Listening for commands");
-    setSpeaking(true);
-    // start model and listen for command
-    model.listen(
-      (result) => {
-        // print result
-        console.log(result.spectrogram);
-
-        // METHOD 1
-        // add argMax function
-        setAction(labels[argMax(Object.values(result.scores))]);
-
-        // METHOD 2
-        // const answer = _.map(result.scores, (s, i) => {
-        //   return { score: s, word: labels[i] };
-        // });
-        // console.log("answer: ", answer);
-        // console.log(
-        //   "sort: ",
-        //   _.last(
-        //     _.sortBy(answer, (s) => {
-        //       return s.score;
-        //     })
-        //   )
-        // );
-      },
-      { includeSpectrogram: true, probabilityThreshold: 0.9 }
-    );
-    // set timeout after which the stops listening
-  };
-
-  const stopSpeak = () => {
-    model.stopListening();
-    setSpeaking(false);
-  };
-
-  useEffect(() => {
-    loadModel();
-  }, []);
-
-  // console.log("model: ", model);
-  // console.log("labels: ", labels);
-  // console.log("action: ", action);
-  // console.log("test argMax: ", argMax([5.2, 1.4, 9.6, 1.8, 3.2, 2.4]));
   return (
     <div className={styles.container}>
       <Head>
@@ -89,28 +14,12 @@ const HomeScreen = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>Welcome to VB-CAPTCHA</h1>
-        {speaking ? (
-          <button className={styles.button} onClick={stopSpeak}>
-            <Image src="/pause.svg" alt="record" width={64} height={64} />
-          </button>
-        ) : (
-          <button className={styles.button} onClick={startSpeak}>
-            <Image src="/record.svg" alt="record" width={64} height={64} />
-          </button>
-        )}
+        <div>
+          <Link href="/signin">
+            <a>Sign In</a>
+          </Link>
+        </div>
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer">
-          Powered by{" "}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
     </div>
   );
 };
