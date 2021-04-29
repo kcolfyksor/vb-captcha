@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./styles.module.css";
 import * as tf from "@tensorflow/tfjs";
 import * as speech from "@tensorflow-models/speech-commands";
@@ -156,70 +157,95 @@ const SignInScreen = () => {
       </Head>
 
       <main className={styles.main}>
-        <form className="container is-fluid">
-          <div className="field">
-            <label className="label">Username</label>
-            <div className="control">
-              <input className="input" type="text" placeholder="Username" />
-            </div>
+        <div className="container is-fluid">
+          <div className="tabs is-centered is-large is-fullwidth mb-6">
+            <ul>
+              <li>
+                <Link href="/">
+                  <a>Home</a>
+                </Link>
+              </li>
+              <li className="is-active">
+                <Link href="/signin">
+                  <a>Sign In</a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/train">
+                  <a>Train</a>
+                </Link>
+              </li>
+            </ul>
           </div>
-          <div className="field">
-            <label className="label">Password</label>
-            <div className="control">
-              <input className="input" type="password" placeholder="Password" />
+          <form className="container is-fluid">
+            <div className="field">
+              <label className="label">Username</label>
+              <div className="control">
+                <input className="input" type="text" placeholder="Username" />
+              </div>
             </div>
-          </div>
-          <div className="box is-flex is-flex-direction-column is-justify-content-center mx-6">
-            {verified ? (
-              <Image src="/ok.svg" alt="record" width={128} height={128} />
-            ) : (
-              <>
-                <div className="box is-flex is-justify-content-center mx-6 is-size-2">
-                  {questionOne} {questionTwo}
-                </div>
-                <div className="columns">
-                  <div className="column is-half is-flex is-justify-content-center">
-                    <button className={styles.button} onClick={refresh}>
-                      <Image
-                        src="/refresh.svg"
-                        alt="refresh"
-                        width={64}
-                        height={64}
-                      />
-                    </button>
+            <div className="field">
+              <label className="label">Password</label>
+              <div className="control">
+                <input
+                  className="input"
+                  type="password"
+                  placeholder="Password"
+                />
+              </div>
+            </div>
+            <div className="box is-flex is-flex-direction-column is-justify-content-center mx-6">
+              {verified ? (
+                <Image src="/ok.svg" alt="record" width={128} height={128} />
+              ) : (
+                <>
+                  <div className="box is-flex is-justify-content-center mx-6 is-size-2">
+                    {questionOne} {questionTwo}
                   </div>
-                  <div className="column is-half is-flex is-justify-content-center">
-                    {speaking ? (
-                      <button className={styles.button} onClick={stopSpeak}>
+                  <div className="columns">
+                    <div className="column is-half is-flex is-justify-content-center">
+                      <button className={styles.button} onClick={refresh}>
                         <Image
-                          src="/pause.svg"
-                          alt="pause"
+                          src="/refresh.svg"
+                          alt="refresh"
                           width={64}
                           height={64}
                         />
                       </button>
-                    ) : (
-                      <button className={styles.button} onClick={startSpeak}>
-                        <Image
-                          src="/record.svg"
-                          alt="record"
-                          width={64}
-                          height={64}
-                        />
-                      </button>
-                    )}
+                    </div>
+                    <div className="column is-half is-flex is-justify-content-center">
+                      {speaking ? (
+                        <button className={styles.button} onClick={stopSpeak}>
+                          <Image
+                            src="/pause.svg"
+                            alt="pause"
+                            width={64}
+                            height={64}
+                          />
+                        </button>
+                      ) : (
+                        <button className={styles.button} onClick={startSpeak}>
+                          <Image
+                            src="/record.svg"
+                            alt="record"
+                            width={64}
+                            height={64}
+                          />
+                        </button>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </>
-            )}
-          </div>
+                </>
+              )}
+            </div>
 
-          <div className="control">
-            <button className="button is-link" disabled={!verified}>
-              Submit
-            </button>
-          </div>
-        </form>
+            <div className="control">
+              <button className="button is-link" disabled={!verified}>
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
       </main>
     </div>
   );
