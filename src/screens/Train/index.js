@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import _ from "lodash";
 
 const TrainScreen = () => {
+  // ============================================  STATES
   const [base, setBase] = useState(null);
   const [transfer, setTransfer] = useState(null);
   const [name, setName] = useState("");
@@ -20,6 +21,7 @@ const TrainScreen = () => {
   const [dlBlob, setDLBlob] = useState(null);
   const [dlReady, setDLReady] = useState(false);
 
+  // ============================================  FUNCTIONS
   const loadBaseModel = async () => {
     // start loading model
     const baseRecognizer = await speech.create("BROWSER_FFT");
@@ -150,14 +152,12 @@ const TrainScreen = () => {
     prepareForDownload();
   };
 
+  // ============================================  EFFECTS
   useEffect(() => {
     loadBaseModel();
   }, []);
 
-  // console.log("ex: ", examples);
-  console.log("trans: ", transfer);
-  // console.log("nc: ", nameConfirm);
-
+  // ============================================  RENDER
   return (
     <div className={styles.container}>
       <Head>
@@ -263,4 +263,5 @@ const TrainScreen = () => {
   );
 };
 
+// ============================================  EXPORT
 export default TrainScreen;
